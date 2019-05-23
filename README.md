@@ -3,7 +3,7 @@
 
 ### What is this repository for? ###
 
-This repository contains the real-time and offline summarization modules of the openpaas sp5 project.
+This repository contains the real-time and offline summarization modules of the LinTo sp5 project.
 
 The REST interfaces and web-Socket connections are implemented in the service package
 
