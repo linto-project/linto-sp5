@@ -1,6 +1,6 @@
 [submodule "DA-Classification"]
 	path = DA-Classification
 	url = https://github.com/shangguokan/DA-Classification
-[submodule "Polysemy-Assessment"]
-    path = PolysemyAssessment
-    url = https://github.com/ksipos/polysemy-assessment
+[submodule "polysemy-assessment"]
+	path = polysemy-assessment
+	url = https://github.com/ksipos/polysemy-assessment
