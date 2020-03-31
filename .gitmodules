@@ -4,3 +4,6 @@
 [submodule "polysemy-assessment"]
 	path = polysemy-assessment
 	url = https://github.com/ksipos/polysemy-assessment
+[submodule "Bart_SAMSum"]
+	path = Bart_SAMSum
+	url = https://github.com/moussaKam/Bart_SAMSum.git
