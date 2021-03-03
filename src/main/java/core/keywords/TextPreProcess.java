@@ -4,7 +4,7 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
-import org.apache.tika.language.LanguageIdentifier;
+import org.apache.tika.langdetect.OptimaizeLangDetector;
 import org.tartarus.snowball.SnowballProgram;
 import org.tartarus.snowball.ext.EnglishStemmer;
 import org.tartarus.snowball.ext.FrenchStemmer;
@@ -25,14 +25,14 @@ public class TextPreProcess {
     private String[] splitText;
     private final Map<String, String> patterns = new HashMap<String, String>() {{
         put("en", "JJ(R|S)*_[0-9]+ NNS*_[0-9]+ NNS*_[0-9]+|( JJ(R|S)*_[0-9]+){1,} NNS*_[0-9]+|NNS*_[0-9]+ IN_[0-9]+ NNS*_[0-9]+|NNS*_[0-9]+|NNPS*_[0-9]+( NNPS*_[0-9]+)*");
-        put("fr", "NOUN_[0-9]+ ADJ_[0-9]+ NOUN_[0-9]+|NOUN_[0-9]+( ADJ_[0-9]+){1,}|ADJ_[0-9]+ NOUN_[0-9]+|(NOUN_[0-9]+|PROPN_[0-9]+){1}( (NOUN_[0-9]+|PROPN_[0-9]+)){1,}|NOUN_[0-9]+ ADP_[0-9]+ NOUN_[0-9]+|NOUN_[0-9]+|PROPN_[0-9]+");
+        put("fr", "NC_[0-9]+ ADJ_[0-9]+ NC_[0-9]+|NC_[0-9]+( ADJ_[0-9]+){1,}|ADJ_[0-9]+ NC_[0-9]+|(NC_[0-9]+|PROPN_[0-9]+){1}( (NC_[0-9]+|PROPN_[0-9]+)){1,}|NC_[0-9]+ ADP_[0-9]+ NC_[0-9]+|NC_[0-9]+|PROPN_[0-9]+");
     }};
     private Map<String, String> stemMapper;
 
     public TextPreProcess(String text, String language) {
         this.text = text;
         if (!Application.languageStopwords.containsKey(language)) { // Verify that the defined language is supported by the application
-            String detectedLanguage = new LanguageIdentifier(text).getLanguage().toLowerCase();
+            String detectedLanguage = new OptimaizeLangDetector().loadModels().detect(text).getLanguage().toLowerCase();
             System.out.println("Detected language: " + detectedLanguage);
             if (Application.languageStopwords.containsKey(detectedLanguage)) { // Verify that the detected language is supported by the application
                 this.language = detectedLanguage;
