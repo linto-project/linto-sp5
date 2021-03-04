@@ -77,6 +77,9 @@ public class GoogleService extends resourceService {
         }
         for (int i = 0; i < queries.size(); i++) {
             String query = queries.get(i);
+            if(query.length() < 2){
+                continue;
+            }
             GoogleResource wikiPager = fetchWiki(queries.get(i));
             if (wikiPager != null) {
                 results.add(wikiPager);
@@ -138,8 +141,7 @@ public class GoogleService extends resourceService {
                 } else {
                     return null;
                 }
-            } catch (IOException ignored) {
-            }
+            } catch (IOException ignored) {}
         }
         return null;
     }

@@ -8,6 +8,7 @@ import core.keywords.TextPreProcess;
 import core.keywords.kcore.KCore;
 import core.keywords.kcore.WeightedGraphKCoreDecomposer;
 import core.keywords.wordgraph.GraphOfWords;
+import core.queryexpansion.BARTezExpander;
 import core.queryexpansion.Clustering;
 import org.jgrapht.WeightedGraph;
 import service.Settings;
@@ -98,20 +99,12 @@ public class Transcript {
             }
         }
 
-        latestQueries = Clustering.cluster(new HashSet<>(Arrays.asList(tpp.getTokens())), topKeys, language);
-
         latestKeywords.clear();
         topKeys = normalizeKeyScores(topKeys);
         topKeys.replaceAll((key, val) -> (uniquePad.contains(key) ? 1 : -1) * val);
         latestKeywords.putAll(topKeys);
-        System.out.println("Generated keywords: " + latestKeywords + ", queries: " + latestQueries);
-        if (latestQueries.isEmpty()) {
-            StringBuilder qry = new StringBuilder();
-            for (String word : latestKeywords.keySet()) {
-                qry.append(" ").append(word);
-            }
-            latestQueries.add(qry.toString());
-        }
+        latestQueries = Arrays.asList(BARTezExpander.sendPOST(getLatestEntriesTextSpecialTokens(), latestKeywords.keySet()).split("##"));
+        System.out.println(latestKeywords.toString());
     }
 
     public List<String> getTokens() {
@@ -126,6 +119,15 @@ public class Transcript {
         StringBuilder out = new StringBuilder();
         for (TranscriptEntry entry : transcriptEntries.asMap().keySet()) {
             out.append(entry.getText()).append(" ");
+        }
+        return out.toString();
+    }
+
+    String getLatestEntriesTextSpecialTokens() {
+        StringBuilder out = new StringBuilder();
+
+        for (TranscriptEntry entry : transcriptEntries.asMap().keySet()) {
+            out.append(entry.getText()).append("<break>");
         }
         return out.toString();
     }
