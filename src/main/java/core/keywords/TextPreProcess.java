@@ -25,7 +25,7 @@ public class TextPreProcess {
     private String[] splitText;
     private final Map<String, String> patterns = new HashMap<String, String>() {{
         put("en", "JJ(R|S)*_[0-9]+ NNS*_[0-9]+ NNS*_[0-9]+|( JJ(R|S)*_[0-9]+){1,} NNS*_[0-9]+|NNS*_[0-9]+ IN_[0-9]+ NNS*_[0-9]+|NNS*_[0-9]+|NNPS*_[0-9]+( NNPS*_[0-9]+)*");
-        put("fr", "NC_[0-9]+ ADJ_[0-9]+ NC_[0-9]+|NC_[0-9]+( ADJ_[0-9]+){1,}|ADJ_[0-9]+ NC_[0-9]+|(NC_[0-9]+|PROPN_[0-9]+){1}( (NC_[0-9]+|PROPN_[0-9]+)){1,}|NC_[0-9]+ ADP_[0-9]+ NC_[0-9]+|NC_[0-9]+|PROPN_[0-9]+");
+        put("fr", "NOUN_[0-9]+ ADJ_[0-9]+ NOUN_[0-9]+|NOUN_[0-9]+( ADJ_[0-9]+){1,}|ADJ_[0-9]+ NOUN_[0-9]+|(NOUN_[0-9]+|PROPN_[0-9]+){1}( (NOUN_[0-9]+|PROPN_[0-9]+)){1,}|NOUN_[0-9]+ ADP_[0-9]+ NOUN_[0-9]+|NOUN_[0-9]+|PROPN_[0-9]+");
     }};
     private Map<String, String> stemMapper;
 

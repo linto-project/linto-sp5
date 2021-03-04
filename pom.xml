@@ -25,8 +25,8 @@
         <!-- https://mvnrepository.com/artifact/org.apache.tika/tika-core -->
         <dependency>
             <groupId>org.apache.tika</groupId>
-            <artifactId>tika-core</artifactId>
-            <version>1.14</version>
+            <artifactId>tika-langdetect</artifactId>
+            <version>1.25</version>
         </dependency>
 
         <dependency>
